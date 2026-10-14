@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="es" data-theme="dark">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Angel Severino | Portafolio</title>
+    <meta name="description" content="Portafolio profesional de Angel Severino, Estudiante de Ingeniería en Sistemas & Desarrollador.">
+    <!-- Bootstrap 5 CSS -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    
+    <style>
+        /* Variables de Tema (Estética Xbox) */
+        :root {
+            /* Light Mode */
+            --bg-color: #f4f6f8;
+            --text-color: #1a1a1a;
+            --card-bg: #ffffff;
+            --accent-color: #107C10; /* Verde Xbox */
+            --accent-hover: #0c5c0c;
+            --border-color: #e0e0e0;
+            --navbar-bg: rgba(255, 255, 255, 0.9);
+        }
+
+        [data-theme="dark"] {
+            /* Dark Mode - Estilo Dashboard Consola */
+            --bg-color: #0b0b0b;
+            --text-color: #f8f9fa;
+            --card-bg: #1a1a1a;
+            --accent-color: #107C10; 
+            --accent-hover: #1ed760;
+            --border-color: #333333;
+            --navbar-bg: rgba(11, 11, 11, 0.95);
+        }
+
+        /* Estilos Generales */
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            transition: background-color 0.3s, color 0.3s;
+            overflow-x: hidden;
+        }
+
+        /* Fondo Canvas */
+        #bg-canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            z-index: -1;
+            opacity: 0.3; /* Translúcido para no opacar */
+            pointer-events: none;
+        }
+
+        /* Utilidades de Acento */
+        .text-accent { color: var(--accent-color) !important; }
+        .bg-accent { background-color: var(--accent-color) !important; color: white !important; }
+        
+        /* Navbar */
+        .navbar {
+            background-color: var(--navbar-bg);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--accent-color);
+        }
+        .navbar-brand, .nav-link { color: var(--text-color) !important; }
+        .nav-link:hover { color: var(--accent-color) !important; text-shadow: 0 0 8px var(--accent-color); }
+
+        /* Tarjetas (Estilo Gaming Hover) */
+        .card {
+            background-color: var(--card-bg);
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            transition: all 0.3s ease;
+        }
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 20px rgba(16, 124, 16, 0.5);
+        }
+        
+        /* Botones */
+        .btn-custom {
+            background-color: var(--accent-color);
+            color: white;
+            border: none;
+            transition: all 0.3s;
+        }
+        .btn-custom:hover {
+            background-color: var(--accent-hover);
+            color: white;
+            box-shadow: 0 0 15px var(--accent-color);
+        }
+
+        /* Hero Section */
+        .hero-img {
+            width: 250px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 4px solid var(--accent-color);
+            box-shadow: 0 0 25px rgba(16, 124, 16, 0.6);
+        }
+
+        /* Proyectos y Filtros */
+        .filter-btn.active {
+            background-color: var(--accent-color);
+            color: white;
+        }
+        .project-item { display: none; }
+        .project-item.show { display: block; animation: fadeIn 0.5s; }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.9); }
+            to { opacity: 1; transform: scale(1); }
+        }
+
+        /* Footer */
+        footer {
+            border-top: 1px solid var(--accent-color);
+            background-color: var(--card-bg);
+        }
+        .social-icon {
+            color: var(--text-color);
+            font-size: 1.5rem;
+            margin: 0 10px;
+            transition: 0.3s;
+        }
+        .social-icon:hover {
+            color: var(--accent-color);
+            text-shadow: 0 0 10px var(--accent-color);
+        }
+        
+        /* Formularios */
+        .form-control {
+            background-color: transparent;
+            color: var(--text-color);
+            border: 1px solid var(--border-color);
+        }
+        .form-control:focus {
+            background-color: transparent;
+            color: var(--text-color);
+            border-color: var(--accent-color);
+            box-shadow: 0 0 10px rgba(16, 124, 16, 0.3);
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Canvas de Fondo (Partículas Estilo Xbox) -->
+    <canvas id="bg-canvas"></canvas>
+
+    <!-- 1. Navbar -->
+    <nav class="navbar navbar-expand-lg fixed-top shadow-sm">
+        <div class="container">
+            <a class="navbar-brand fw-bold text-accent" href="#"><i class="fa-solid fa-gamepad"></i> A.Severino</a>
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+                <i class="fa-solid fa-bars text-accent"></i>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav ms-auto mb-2 mb-lg-0 align-items-center">
+                    <li class="nav-item"><a class="nav-link" href="#hero">Inicio</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#stack">Stack</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#proyectos">Proyectos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#experiencia">Experiencia</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#videos">Videos</a></li>
+                    <li class="nav-item"><a class="nav-link" href="#contacto">Contacto</a></li>
+                    <li class="nav-item ms-3">
+                        <button id="theme-toggle" class="btn btn-outline-success btn-sm">
+                            <i class="fa-solid fa-moon"></i>
+                        </button>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+
+    <!-- 2. Hero Section -->
+    <section id="hero" class="min-vh-100 d-flex align-items-center pt-5">
+        <div class="container">
+            <div class="row align-items-center justify-content-center text-center text-lg-start">
+                <div class="col-lg-4 mb-4 mb-lg-0 text-center">
+                    <img src="https://i.ibb.co/FLVP8DYs/Whats-App-Image-2026-07-08-at-5-48-58-PM.jpg" alt="Angel Severino" class="hero-img img-fluid">
+                </div>
+                <div class="col-lg-8">
+                    <h1 class="display-4 fw-bold">Soy <span class="text-accent">Angel Severino</span> 🎮</h1>
+                    <h2 class="h4 mb-4">Estudiante de Ingeniería en Sistemas & Desarrollador</h2>
+                    <p class="lead">
+                        Soy estudiante de Ingeniería en Sistemas y laboro como indexador de documentos para un banco nacional. Soy un apasionado del desarrollo web, amante de los videojuegos, el ejercicio, la música, la historia y el cine 🍿🏋️‍♂️. Me enfoco en crear interfaces modernas, responsivas y optimizadas.
+                    </p>
+                    <a href="#proyectos" class="btn btn-custom btn-lg mt-3"><i class="fa-solid fa-code"></i> Ver mis proyectos</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 3. Stack Tecnológico -->
+    <section id="stack" class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-5"><i class="fa-solid fa-layer-group text-accent"></i> Stack Tecnológico</h2>
+            <div class="row justify-content-center g-4">
+                <div class="col-md-4 col-sm-6">
+                    <div class="card p-4 h-100">
+                        <i class="fa-brands fa-html5 fa-4x mb-3" style="color: #E34F26;"></i>
+                        <h3 class="h5">HTML5</h3>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card p-4 h-100">
+                        <i class="fa-brands fa-microsoft fa-4x mb-3 text-accent"></i>
+                        <h3 class="h5">C#</h3>
+                    </div>
+                </div>
+                <div class="col-md-4 col-sm-6">
+                    <div class="card p-4 h-100">
+                        <i class="fa-brands fa-python fa-4x mb-3" style="color: #3776AB;"></i>
+                        <h3 class="h5">Python</h3>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 4. Proyectos -->
+    <section id="proyectos" class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-4"><i class="fa-solid fa-folder-open text-accent"></i> Proyectos</h2>
+            
+            <!-- Filtros -->
+            <div class="mb-5">
+                <button class="btn btn-outline-success filter-btn active m-1" data-filter="all">Todos</button>
+                <button class="btn btn-outline-success filter-btn m-1" data-filter="web">Web</button>
+                <button class="btn btn-outline-success filter-btn m-1" data-filter="app">Apps</button>
+                <button class="btn btn-outline-success filter-btn m-1" data-filter="design">Diseño</button>
+            </div>
+
+            <div class="row g-4" id="project-container">
+                <!-- Proyectos Web -->
+                <div class="col-lg-4 col-md-6 project-item show web">
+                    <div class="card h-100">
+                        <img src=https://cdn.dribbble.com/userupload/18936868/file/original-0eb75f05a5f4a96014cf5ad214d5f586.png class="card-img-top" alt="Web 1">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Dashboard Gaming</h5>
+                            <p class="card-text">Interfaz web para gestión de torneos e-sports.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show web">
+                    <div class="card h-100">
+                        <img src=https://i.blogs.es/c3f619/img_20231211_130625/840_560.jpeg class="card-img-top" alt="Web 2">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">E-Commerce Retro</h5>
+                            <p class="card-text">Tienda virtual de consolas y juegos clásicos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show web">
+                    <div class="card h-100">
+                        <img src=https://www.debatesiesa.com/debatesweb/wp-content/uploads/2021/03/0571-cyberpunk_1.jpg class="card-img-top" alt="Web 3">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Foro Ciberpunk</h5>
+                            <p class="card-text">Comunidad web para desarrolladores y gamers.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyectos Apps -->
+                <div class="col-lg-4 col-md-6 project-item show app">
+                    <div class="card h-100">
+                        <img src=https://cdn.macstories.net/tuesday-28-jan-2025-08-59-03-1738072839195.png class="card-img-top" alt="App 1">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">App Tracker</h5>
+                            <p class="card-text">Aplicación móvil para trackear horas de juego.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show app">
+                    <div class="card h-100">
+                        <img src=https://blog.contemplarol.com/wp-content/uploads/2020/01/Iv%C3%A1n_Tierras-de-Nirm.jpg class="card-img-top" alt="App 2">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Game Companion</h5>
+                            <p class="card-text">Guías y mapas interactivos para juegos RPG.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show app">
+                    <div class="card h-100">
+                        <img src=https://www.trecebits.com/wp-content/uploads/2024/11/gameram.webp class="card-img-top" alt="App 3">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Social Player</h5>
+                            <p class="card-text">App para encontrar compañeros de escuadrón.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Proyectos Diseño -->
+                <div class="col-lg-4 col-md-6 project-item show design">
+                    <div class="card h-100">
+                        <img src=https://i.blogs.es/17c71f/250719-xboxone/840_560.jpeg class="card-img-top" alt="Design 1">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">UI Menú Xbox</h5>
+                            <p class="card-text">Rediseño conceptual de interfaz de consola.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show design">
+                    <div class="card h-100">
+                        <img src=https://assets.turbologo.com/blog/es/2019/12/19132813/Animals-logo-for-gamers.png class="card-img-top" alt="Design 2">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Logotipos E-Sports</h5>
+                            <p class="card-text">Branding y diseño de identidad para equipos.</p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6 project-item show design">
+                    <div class="card h-100">
+                        <img src=https://i.etsystatic.com/65635385/r/il/d8422a/8541604577/il_fullxfull.8541604577_evnq.jpg class="card-img-top" alt="Design 3">
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">Assets 3D</h5>
+                            <p class="card-text">Modelado de objetos y armas para juegos indies.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 5. Experiencia Laboral -->
+    <section id="experiencia" class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-5"><i class="fa-solid fa-briefcase text-accent"></i> Experiencia Laboral</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-8">
+                    <div class="card p-4 text-start">
+                        <h4 class="text-accent fw-bold">Indexador de documentos personales y privados</h4>
+                        <h5 class="text-accent"><i class="fa-solid fa-building-columns"></i> Banco Nacional | 📅 Actualidad</h5>
+                        <p class="mt-3">Gestión, organización e indexación de información confidencial y documentación crítica del banco. Aplicación de rigor, orden y privacidad en el manejo de altos volúmenes de datos.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 6. Videos Destacados -->
+    <section id="videos" class="py-5">
+        <div class="container text-center">
+            <h2 class="fw-bold mb-5"><i class="fa-brands fa-youtube text-accent"></i> Videos Destacados</h2>
+            <div class="row g-4">
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 p-2">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/bfykG7WUvIA" title="Video 1" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">🕹️Ejercicio #2 - Uso Básico de Variables y Tipos en .NET MAUI | Angel Severino</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 p-2">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/IPgB57WE430" title="Video 2" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">🎬 PRIMER EJERCICIO: TIPOS DE DATOS Y VARIABLES EN .NET MAUI -Angel Severino</h5>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-4 col-md-6">
+                    <div class="card h-100 p-2">
+                        <div class="ratio ratio-16x9">
+                            <iframe src="https://www.youtube.com/embed/RzkD_rTEBYs" title="Historia de la IA" allowfullscreen></iframe>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title text-accent">🤖 Historia de la IA</h5>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- 9 Bloques comentados exigidos -->
+                <!--
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 1</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 2</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 3</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 4</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 5</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 6</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 7</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 8</h5></div></div></div>
+                <div class="col-lg-4 col-md-6"><div class="card h-100 p-2"><div class="ratio ratio-16x9"><iframe src="" allowfullscreen></iframe></div><div class="card-body"><h5 class="card-title text-accent">Video Extra 9</h5></div></div></div>
+                -->
+            </div>
+        </div>
+    </section>
+
+    <!-- 7. Formulario de Contacto -->
+    <section id="contacto" class="py-5">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5"><i class="fa-solid fa-envelope text-accent"></i> Contáctame</h2>
+            <div class="row justify-content-center">
+                <div class="col-lg-6">
+                    <div class="card p-4 shadow">
+                        <form id="contactForm" onsubmit="enviarCorreo(event)">
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fa-solid fa-user text-accent"></i> Nombre</label>
+                                <input type="text" class="form-control" id="nombre" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fa-solid fa-at text-accent"></i> Correo Electrónico</label>
+                                <input type="email" class="form-control" id="email" required>
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fa-solid fa-phone text-accent"></i> Teléfono</label>
+                                <input type="tel" class="form-control" id="telefono">
+                            </div>
+                            <div class="mb-3">
+                                <label class="form-label"><i class="fa-solid fa-comment text-accent"></i> Mensaje</label>
+                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-custom w-100 fw-bold">Enviar <i class="fa-solid fa-paper-plane"></i></button>
+                            <div id="form-feedback" class="mt-3 text-center text-accent fw-bold" style="display: none;">
+                                Mensaje enviado correctamente.
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- 8. Footer -->
+    <footer class="py-4 text-center mt-auto">
+        <div class="container">
+            <div class="mb-3">
+                <a href="https://www.instagram.com/daniel_severino8/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
+                <a href="https://www.linkedin.com/in/daniel-severino-261795390/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
+                <a href="https://github.com/danielseverinocabrera16-maker" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
+            </div>
+            <p class="mb-2">&copy; 2026 Angel Severino. Todos los derechos reservados.</p>
+            <a href="#hero" class="btn btn-outline-success btn-sm mt-2"><i class="fa-solid fa-arrow-up"></i> Volver Arriba</a>
+        </div>
+    </footer>
+
+    <!-- Bootstrap 5 JS Bundle -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
+    
+    <!-- Lógica JS Integrada -->
+    <script>
+        // 1. Alternancia Dark/Light Mode
+        const themeToggle = document.getElementById('theme-toggle');
+        const htmlElement = document.documentElement;
+        const themeIcon = themeToggle.querySelector('i');
+
+        themeToggle.addEventListener('click', () => {
+            if (htmlElement.getAttribute('data-theme') === 'dark') {
+                htmlElement.setAttribute('data-theme', 'light');
+                themeIcon.classList.replace('fa-moon', 'fa-sun');
+            } else {
+                htmlElement.setAttribute('data-theme', 'dark');
+                themeIcon.classList.replace('fa-sun', 'fa-moon');
+            }
+        });
+
+        // 2. Filtros de Proyectos
+        const filterBtns = document.querySelectorAll('.filter-btn');
+        const projectItems = document.querySelectorAll('.project-item');
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                
+                const filterValue = btn.getAttribute('data-filter');
+                
+                projectItems.forEach(item => {
+                    if (filterValue === 'all' || item.classList.contains(filterValue)) {
+                        item.classList.add('show');
+                    } else {
+                        item.classList.remove('show');
+                    }
+                });
+            });
+        });
+
+        // 3. Simulación de Envío de Formulario (Integración EmailJS/SMTP visual)
+        function enviarCorreo(e) {
+            e.preventDefault();
+            const btn = e.target.querySelector('button[type="submit"]');
+            const feedback = document.getElementById('form-feedback');
+            
+            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+            btn.disabled = true;
+
+            // Simulación de delay de red (Aquí iría la lógica real de EmailJS)
+            setTimeout(() => {
+                feedback.style.display = 'block';
+                e.target.reset();
+                btn.innerHTML = 'Enviar <i class="fa-solid fa-paper-plane"></i>';
+                btn.disabled = false;
+                
+                setTimeout(() => { feedback.style.display = 'none'; }, 4000);
+            }, 1500);
+        }
+
+        // 4. Fondo Canvas (Partículas Verdes Estilo Xbox)
+        const canvas = document.getElementById('bg-canvas');
+        const ctx = canvas.getContext('2d');
+        let particlesArray = [];
+
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        window.addEventListener('resize', () => {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+            init();
+        });
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * canvas.width;
+                this.y = Math.random() * canvas.height;
+                this.size = Math.random() * 3 + 1;
+                this.speedX = Math.random() * 1 - 0.5;
+                this.speedY = Math.random() * 1 - 0.5;
+            }
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+            }
+            draw() {
+                ctx.fillStyle = '#107C10'; // Verde Xbox
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                ctx.fill();
+            }
+        }
+
+        function init() {
+            particlesArray = [];
+            let numberOfParticles = (canvas.width * canvas.height) / 9000;
+            for (let i = 0; i < numberOfParticles; i++) {
+                particlesArray.push(new Particle());
+            }
+        }
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            for (let i = 0; i < particlesArray.length; i++) {
+                particlesArray[i].update();
+                particlesArray[i].draw();
+                // Líneas conectoras
+                for (let j = i; j < particlesArray.length; j++) {
+                    let dx = particlesArray[i].x - particlesArray[j].x;
+                    let dy = particlesArray[i].y - particlesArray[j].y;
+                    let distance = Math.sqrt(dx * dx + dy * dy);
+                    if (distance < 100) {
+                        ctx.beginPath();
+                        ctx.strokeStyle = `rgba(16, 124, 16, ${1 - distance/100})`;
+                        ctx.lineWidth = 0.5;
+                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                        ctx.stroke();
+                    }
+                }
+            }
+            requestAnimationFrame(animate);
+        }
+
+        init();
+        animate();
+    </script>
+</body>
+</html>
