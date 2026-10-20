@@ -6,4 +6,4 @@
 
 **URL del Proyecto (GitHub Pages):** https://danielseverinocabrera16-maker.github.io/Proyecto-2-Portafolio-Personal/
 
-**URL Alternativa (Vercel):** https://proyecto-2-portafolio-personal-3wucmbhm3-severino4.vercel.app/
+**URL Alternativa (Vercel):** https://proyecto-2-portafolio-personal-bykgksaa2-severino4.vercel.app
