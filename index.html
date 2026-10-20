@@ -9,6 +9,11 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
     <!-- Font Awesome -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- Bootstrap Icons (Para el ícono de WhatsApp y Gmail) -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+<!-- SDK de EmailJS -->
+<script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
     
     <style>
         /* Variables de Tema (Estética Xbox) */
@@ -372,10 +377,10 @@
                 <div class="col-lg-4 col-md-6">
                     <div class="card h-100 p-2">
                         <div class="ratio ratio-16x9">
-                            <iframe src="https://www.youtube.com/embed/RzkD_rTEBYs" title="Historia de la IA" allowfullscreen></iframe>
+                            <iframe src="https://www.youtube.com/embed/aJ-jB36w9fE" title="Ejercicio #3: Sistema de Login Básico en .NET MAUI (C# y XAML)" allowfullscreen></iframe>
                         </div>
                         <div class="card-body">
-                            <h5 class="card-title text-accent">🤖 Historia de la IA</h5>
+                            <h5 class="card-title text-accent">Ejercicio #3: Sistema de Login Básico en .NET MAUI (C# y XAML)</h5>
                         </div>
                     </div>
                 </div>
@@ -397,72 +402,104 @@
     </section>
 
     <!-- 7. Formulario de Contacto -->
-    <section id="contacto" class="py-5">
-        <div class="container">
-            <h2 class="text-center fw-bold mb-5"><i class="fa-solid fa-envelope text-accent"></i> Contáctame</h2>
-            <div class="row justify-content-center">
-                <div class="col-lg-6">
-                    <div class="card p-4 shadow">
-                        <form id="contactForm" onsubmit="enviarCorreo(event)">
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fa-solid fa-user text-accent"></i> Nombre</label>
-                                <input type="text" class="form-control" id="nombre" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fa-solid fa-at text-accent"></i> Correo Electrónico</label>
-                                <input type="email" class="form-control" id="email" required>
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fa-solid fa-phone text-accent"></i> Teléfono</label>
-                                <input type="tel" class="form-control" id="telefono">
-                            </div>
-                            <div class="mb-3">
-                                <label class="form-label"><i class="fa-solid fa-comment text-accent"></i> Mensaje</label>
-                                <textarea class="form-control" id="mensaje" rows="4" required></textarea>
-                            </div>
-                            <button type="submit" class="btn btn-custom w-100 fw-bold">Enviar <i class="fa-solid fa-paper-plane"></i></button>
-                            <div id="form-feedback" class="mt-3 text-center text-accent fw-bold" style="display: none;">
-                                Mensaje enviado correctamente.
-                            </div>
-                        </form>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section id="contacto" class="container py-5">
+  <h2 class="text-center mb-4 text-success fw-bold">Contactame</h2>
+  <div class="row g-4 justify-content-center">
+    
 
-    <!-- 8. Footer -->
-    <footer class="py-4 text-center mt-auto">
-        <div class="container">
-            <div class="mb-3">
-                <a href="https://www.instagram.com/daniel_severino8/" target="_blank" class="social-icon"><i class="fa-brands fa-instagram"></i></a>
-                <a href="https://www.linkedin.com/in/daniel-severino-261795390/" target="_blank" class="social-icon"><i class="fa-brands fa-linkedin"></i></a>
-                <a href="https://github.com/danielseverinocabrera16-maker" target="_blank" class="social-icon"><i class="fa-brands fa-github"></i></a>
-            </div>
-            <p class="mb-2">&copy; 2026 Angel Severino. Todos los derechos reservados.</p>
-            <a href="#hero" class="btn btn-outline-success btn-sm mt-2"><i class="fa-solid fa-arrow-up"></i> Volver Arriba</a>
-        </div>
-    </footer>
+   <!-- Tarjeta de Contacto Directo con Redes Sociales -->
+<div class="col-md-5">
+  <div class="card bg-dark text-light p-4 border-success h-100 shadow">
+    <h4 class="text-success mb-3">Contacto Directo</h4>
+    <p class="text-muted">¿Tienes un proyecto en mente o una consulta rápida? Escríbeme o conéctate conmigo en redes.</p>
+    
+    <!-- Botones Principales -->
+    <div class="d-flex flex-column gap-3 mt-3">
+      <a href="https://wa.me/18495251633?text=Hola%20Angel,%20vi%20tu%20portafolio%20web%20y%20me%20gustaría%20contactarte." 
+         target="_blank" 
+         class="btn btn-outline-success btn-lg d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-whatsapp fs-4"></i> WhatsApp Directo
+      </a>
 
-    <!-- Bootstrap 5 JS Bundle -->
+      <a href="mailto:danielseverinocabrera16@gmail.com" 
+         class="btn btn-outline-light btn-lg d-flex align-items-center justify-content-center gap-2">
+        <i class="bi bi-envelope-fill fs-4"></i> Enviar a mi Gmail
+      </a>
+    </div>
+
+    <!-- Enlaces a Redes Sociales (GitHub, LinkedIn, Instagram) -->
+    <hr class="border-secondary my-4">
+    <h5 class="text-light mb-3 text-center">Sígueme en mis redes</h5>
+    <div class="d-flex justify-content-center gap-3 fs-2">
+      <!-- GitHub -->
+      <a href="https://github.com/danielseverinocabrera16-maker" target="_blank" class="text-light text-decoration-none transition-icon">
+        <i class="bi bi-github"></i>
+      </a>
+      <!-- LinkedIn -->
+      <a href="https://www.linkedin.com/in/daniel-severino-261795390/" target="_blank" class="text-primary text-decoration-none transition-icon">
+        <i class="bi bi-linkedin"></i>
+      </a>
+      <!-- Instagram -->
+      <a href="https://www.instagram.com/daniel_severino8/" target="_blank" class="text-danger text-decoration-none transition-icon">
+        <i class="bi bi-instagram"></i>
+      </a>
+    </div>
+  </div>
+</div>
+
+    <!-- Formulario con EmailJS -->
+    <div class="col-md-7">
+      <form id="contact-form" class="card bg-dark text-light p-4 border-secondary shadow">
+        <div class="mb-3">
+          <label for="user_name" class="form-label">Nombre completo</label>
+          <input type="text" class="form-control bg-secondary text-light border-0" id="user_name" name="user_name" required>
+        </div>
+        <div class="mb-3">
+          <label for="user_email" class="form-label">Correo electrónico</label>
+          <input type="email" class="form-control bg-secondary text-light border-0" id="user_email" name="user_email" required>
+        </div>
+        <div class="mb-3">
+          <label for="message" class="form-label">Mensaje</label>
+          <textarea class="form-control bg-secondary text-light border-0" id="message" name="message" rows="4" required></textarea>
+        </div>
+        <button type="submit" id="btn-submit" class="btn btn-success btn-lg w-100">
+          <i class="bi bi-send-fill me-2"></i>Enviar Mensaje
+        </button>
+      </form>
+    </div>
+
+  </div>
+</section>
+
+  
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+
+   
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     
-    <!-- Lógica JS Integrada -->
+    
     <script>
+        // 0. Inicializar EmailJS con tu Public Key
+        (function() {
+            emailjs.init("51uH1bNvfaKiNDGtN");
+        })();
+
         // 1. Alternancia Dark/Light Mode
         const themeToggle = document.getElementById('theme-toggle');
         const htmlElement = document.documentElement;
         const themeIcon = themeToggle.querySelector('i');
 
-        themeToggle.addEventListener('click', () => {
-            if (htmlElement.getAttribute('data-theme') === 'dark') {
-                htmlElement.setAttribute('data-theme', 'light');
-                themeIcon.classList.replace('fa-moon', 'fa-sun');
-            } else {
-                htmlElement.setAttribute('data-theme', 'dark');
-                themeIcon.classList.replace('fa-sun', 'fa-moon');
-            }
-        });
+        if (themeToggle) {
+            themeToggle.addEventListener('click', () => {
+                if (htmlElement.getAttribute('data-theme') === 'dark') {
+                    htmlElement.setAttribute('data-theme', 'light');
+                    themeIcon.classList.replace('fa-moon', 'fa-sun');
+                } else {
+                    htmlElement.setAttribute('data-theme', 'dark');
+                    themeIcon.classList.replace('fa-sun', 'fa-moon');
+                }
+            });
+        }
 
         // 2. Filtros de Proyectos
         const filterBtns = document.querySelectorAll('.filter-btn');
@@ -485,95 +522,105 @@
             });
         });
 
-        // 3. Simulación de Envío de Formulario (Integración EmailJS/SMTP visual)
-        function enviarCorreo(e) {
-            e.preventDefault();
-            const btn = e.target.querySelector('button[type="submit"]');
-            const feedback = document.getElementById('form-feedback');
-            
-            btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
-            btn.disabled = true;
-
-            // Simulación de delay de red (Aquí iría la lógica real de EmailJS)
-            setTimeout(() => {
-                feedback.style.display = 'block';
-                e.target.reset();
-                btn.innerHTML = 'Enviar <i class="fa-solid fa-paper-plane"></i>';
-                btn.disabled = false;
+        // 3. Envío Real con EmailJS
+        const contactForm = document.getElementById('contact-form');
+        if (contactForm) {
+            contactForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                const btn = document.getElementById('btn-submit');
+                const originalBtnText = btn.innerHTML;
                 
-                setTimeout(() => { feedback.style.display = 'none'; }, 4000);
-            }, 1500);
+                btn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...';
+                btn.disabled = true;
+
+                const serviceID = 'service_26n7hdk';
+                const templateID = 'template_mqiy5it';
+
+                emailjs.sendForm(serviceID, templateID, this)
+                    .then(() => {
+                        alert('¡Mensaje enviado con éxito a mi Gmail!');
+                        this.reset();
+                        btn.innerHTML = 'Enviar <i class="fa-solid fa-paper-plane"></i>';
+                        btn.disabled = false;
+                    }, (err) => {
+                        alert('Error al enviar el mensaje. Revisa tu Public Key o conexión.');
+                        console.error('Error EmailJS:', err);
+                        btn.innerHTML = originalBtnText;
+                        btn.disabled = false;
+                    });
+            });
         }
 
         // 4. Fondo Canvas (Partículas Verdes Estilo Xbox)
         const canvas = document.getElementById('bg-canvas');
-        const ctx = canvas.getContext('2d');
-        let particlesArray = [];
+        if (canvas) {
+            const ctx = canvas.getContext('2d');
+            let particlesArray = [];
 
-        canvas.width = window.innerWidth;
-        canvas.height = window.innerHeight;
-
-        window.addEventListener('resize', () => {
             canvas.width = window.innerWidth;
             canvas.height = window.innerHeight;
-            init();
-        });
 
-        class Particle {
-            constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = Math.random() * 1 - 0.5;
-                this.speedY = Math.random() * 1 - 0.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
-                if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
-            }
-            draw() {
-                ctx.fillStyle = '#107C10'; // Verde Xbox
-                ctx.beginPath();
-                ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
-                ctx.fill();
-            }
-        }
+            window.addEventListener('resize', () => {
+                canvas.width = window.innerWidth;
+                canvas.height = window.innerHeight;
+                init();
+            });
 
-        function init() {
-            particlesArray = [];
-            let numberOfParticles = (canvas.width * canvas.height) / 9000;
-            for (let i = 0; i < numberOfParticles; i++) {
-                particlesArray.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            for (let i = 0; i < particlesArray.length; i++) {
-                particlesArray[i].update();
-                particlesArray[i].draw();
-                // Líneas conectoras
-                for (let j = i; j < particlesArray.length; j++) {
-                    let dx = particlesArray[i].x - particlesArray[j].x;
-                    let dy = particlesArray[i].y - particlesArray[j].y;
-                    let distance = Math.sqrt(dx * dx + dy * dy);
-                    if (distance < 100) {
-                        ctx.beginPath();
-                        ctx.strokeStyle = `rgba(16, 124, 16, ${1 - distance/100})`;
-                        ctx.lineWidth = 0.5;
-                        ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
-                        ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
-                        ctx.stroke();
-                    }
+            class Particle {
+                constructor() {
+                    this.x = Math.random() * canvas.width;
+                    this.y = Math.random() * canvas.height;
+                    this.size = Math.random() * 3 + 1;
+                    this.speedX = Math.random() * 1 - 0.5;
+                    this.speedY = Math.random() * 1 - 0.5;
+                }
+                update() {
+                    this.x += this.speedX;
+                    this.y += this.speedY;
+                    if (this.x > canvas.width || this.x < 0) this.speedX *= -1;
+                    if (this.y > canvas.height || this.y < 0) this.speedY *= -1;
+                }
+                draw() {
+                    ctx.fillStyle = '#107C10'; // Verde Xbox
+                    ctx.beginPath();
+                    ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+                    ctx.fill();
                 }
             }
-            requestAnimationFrame(animate);
-        }
 
-        init();
-        animate();
+            function init() {
+                particlesArray = [];
+                let numberOfParticles = (canvas.width * canvas.height) / 9000;
+                for (let i = 0; i < numberOfParticles; i++) {
+                    particlesArray.push(new Particle());
+                }
+            }
+
+            function animate() {
+                ctx.clearRect(0, 0, canvas.width, canvas.height);
+                for (let i = 0; i < particlesArray.length; i++) {
+                    particlesArray[i].update();
+                    particlesArray[i].draw();
+                    for (let j = i; j < particlesArray.length; j++) {
+                        let dx = particlesArray[i].x - particlesArray[j].x;
+                        let dy = particlesArray[i].y - particlesArray[j].y;
+                        let distance = Math.sqrt(dx * dx + dy * dy);
+                        if (distance < 100) {
+                            ctx.beginPath();
+                            ctx.strokeStyle = `rgba(16, 124, 16, ${1 - distance/100})`;
+                            ctx.lineWidth = 0.5;
+                            ctx.moveTo(particlesArray[i].x, particlesArray[i].y);
+                            ctx.lineTo(particlesArray[j].x, particlesArray[j].y);
+                            ctx.stroke();
+                        }
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+            init();
+            animate();
+        }
     </script>
 </body>
 </html>
